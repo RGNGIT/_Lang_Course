@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CourseEngine\" />
+    <None Remove="CourseEngine\Classes\" />
+    <None Remove="CourseEngine\Classes\Languages\" />
+    <None Remove="CourseEngine\Classes\Mastering\" />
+    <None Remove="CourseEngine\Classes\Courses\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CourseEngine\" />
+    <Folder Include="CourseEngine\Classes\" />
+    <Folder Include="CourseEngine\Classes\Languages\" />
+    <Folder Include="CourseEngine\Classes\Masterings\" />
+    <Folder Include="CourseEngine\Classes\Courses\" />
+  </ItemGroup>
+</Project>
