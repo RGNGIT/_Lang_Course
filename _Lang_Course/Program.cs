@@ -2,7 +2,7 @@
 
 public static class Program
 {
-    static CourseEngineCore CourseEngineCore = new();
+    static CourseEngineCore CourseEngineCore = new(new Storage());
     // Init window form here
-
+    
 }

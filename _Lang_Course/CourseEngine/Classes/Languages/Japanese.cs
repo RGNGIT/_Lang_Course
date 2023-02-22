@@ -1,6 +1,7 @@
 ﻿using System;
 namespace _Lang_Course.CourseEngine.Classes.Languages
 {
+	[Serializable]
 	public class Japanese: Language
 	{
 
