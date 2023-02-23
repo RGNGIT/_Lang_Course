@@ -18,58 +18,81 @@ namespace _Lang_Course.CourseEngine
 
 	public class CourseEngineCore
 	{
-		public Storage storage {get; set;}
+		public Storage storage { get; set; }
 
-		public CourseEngineCore(Storage storage) 
+		public CourseEngineCore(Storage storage)
 		{
 			this.storage = storage;
 		}
 
-		public Listener RegisterNewListener(string FIO) 
+		public Listener RegisterNewListener(string FIO)
 		{
 			Listener listener = new(FIO);
 			storage.Listeners.Add(listener);
 			return listener;
 		}
 
-		public T RegisterNewLanguage<T>(T Language, Dictionary<string, string> Values) 
+		public string? DefineMastering(Mastering mastering)
 		{
-			
-			(Language as Language).CharAmount = Convert.ToInt32(Values["CharAmount"]);
-			(Language as Language).PercentOfSpread = Convert.ToSingle(Values["PercentOfSpread"]);
-			switch(Language!.GetType().Name) 
+			switch(mastering.GetType().Name)
 			{
-				case "English": 
-				(Language as English).SpeakerType = Values["SpeakerType"];
-				storage.Languages.Add(Language as English);
-				break;
+				case "Beginner": return "Начальный";
+				case "Middle": return "Средний";
+				case "Expert": return "Продвинутый";
+			}
+			return null;
+		}
+
+		public string? DefineLang(Language language) 
+		{
+            switch (language.GetType().Name)
+            {
+                case "English":
+                    return $"Английский. Тип носителя: {(language as English).SpeakerType}";
+                case "Japanese":
+                    return $"Японский. Тип иероглифов: {(language as Japanese).GlyphType}";
+                case "German":
+                    return $"Японский. Диалект: {(language as German).Dialect}";
+                case "French":
+                    return $"Японский. Регион: {(language as French).Region}";
+            }
+			return null;
+        }
+
+		public T RegisterNewLanguage<T>(T Language)
+		{
+			switch (Language!.GetType().Name)
+			{
+				case "English":
+					storage.Languages.Add(Language as English);
+					break;
 				case "Japanese":
-				(Language as Japanese).GlyphType = Values["GlyphType "];
-				storage.Languages.Add(Language as Japanese);
-				break;
+					storage.Languages.Add(Language as Japanese);
+					break;
 				case "German":
-				(Language as German).Dialect = Values["Dialect"];
-				storage.Languages.Add(Language as German);
-				break;
+					storage.Languages.Add(Language as German);
+					break;
 				case "French":
-				(Language as French).Region = Values["Region"];
-				storage.Languages.Add(Language as French);
-				break;
+					storage.Languages.Add(Language as French);
+					break;
 			}
 			return Language;
 		}
 
-		public T RegisterNewMastering<T>(T Mastering, Language Language) 
+		public T RegisterNewMastering<T>(T Mastering, Language Language)
 		{
 			(Mastering as Mastering).Language = Language;
-			switch(Mastering.GetType().Name) 
+			switch (Mastering.GetType().Name)
 			{
 				case "Beginner":
-				break;
+					storage.Masterings.Add(Mastering as Beginner);
+					break;
 				case "Middle":
-				break;
+					storage.Masterings.Add(Mastering as Middle);
+					break;
 				case "Expert":
-				break;
+					storage.Masterings.Add(Mastering as Expert);
+					break;
 			}
 			return Mastering;
 		}

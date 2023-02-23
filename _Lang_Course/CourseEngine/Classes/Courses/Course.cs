@@ -7,10 +7,12 @@ namespace _Lang_Course.CourseEngine.Classes.Courses
 	public class Course
 	{
 
+		public string Name { get; set; }
 		public Mastering Mastering { get; set; }
 
-		public Course(Mastering Mastering)
+		public Course(Mastering Mastering, string Name)
 		{
+			this.Name = Name;
 			this.Mastering = Mastering;
 		}
 	}

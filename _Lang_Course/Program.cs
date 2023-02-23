@@ -1,8 +1,12 @@
-﻿using _Lang_Course.CourseEngine;
+﻿using _Lang_Course;
 
-public static class Program
+class Program
 {
-    static CourseEngineCore CourseEngineCore = new(new Storage());
     // Init window form here
-    
+    static void Main(string[] args)
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new App());
+    }
 }
