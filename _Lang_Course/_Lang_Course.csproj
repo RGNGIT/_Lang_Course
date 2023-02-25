@@ -17,7 +17,6 @@
     <None Remove="CourseEngine\Classes\Courses\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CourseEngine\" />
     <Folder Include="CourseEngine\Classes\" />
     <Folder Include="CourseEngine\Classes\Languages\" />
     <Folder Include="CourseEngine\Classes\Masterings\" />

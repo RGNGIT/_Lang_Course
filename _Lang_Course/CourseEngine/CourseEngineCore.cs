@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using _Lang_Course.CourseEngine.Classes.Courses;
 using _Lang_Course.CourseEngine.Classes.Languages;
 using _Lang_Course.CourseEngine.Classes.Masterings;
@@ -34,7 +35,7 @@ namespace _Lang_Course.CourseEngine
 
 		public string? DefineMastering(Mastering mastering)
 		{
-			switch(mastering.GetType().Name)
+			switch (mastering.GetType().Name)
 			{
 				case "Beginner": return "Начальный";
 				case "Middle": return "Средний";
@@ -43,21 +44,21 @@ namespace _Lang_Course.CourseEngine
 			return null;
 		}
 
-		public string? DefineLang(Language language) 
+		public string? DefineLang(Language language)
 		{
-            switch (language.GetType().Name)
-            {
-                case "English":
-                    return $"Английский. Тип носителя: {(language as English).SpeakerType}";
-                case "Japanese":
-                    return $"Японский. Тип иероглифов: {(language as Japanese).GlyphType}";
-                case "German":
-                    return $"Японский. Диалект: {(language as German).Dialect}";
-                case "French":
-                    return $"Японский. Регион: {(language as French).Region}";
-            }
+			switch (language.GetType().Name)
+			{
+				case "English":
+					return $"Английский. Тип носителя: {(language as English).SpeakerType}";
+				case "Japanese":
+					return $"Японский. Тип иероглифов: {(language as Japanese).GlyphType}";
+				case "German":
+					return $"Японский. Диалект: {(language as German).Dialect}";
+				case "French":
+					return $"Японский. Регион: {(language as French).Region}";
+			}
 			return null;
-        }
+		}
 
 		public T RegisterNewLanguage<T>(T Language)
 		{
@@ -95,6 +96,44 @@ namespace _Lang_Course.CourseEngine
 					break;
 			}
 			return Mastering;
+		}
+
+		public string StringifyListOfListeners(Course course)
+		{
+			string temp = "";
+			switch (course.GetType().Name)
+			{
+				case "Individual":
+					temp += (course as Individual).Listener.FIO;
+					break;
+				case "Group":
+					foreach (Listener listener in (course as Group).Listeners)
+					{
+						temp += listener.FIO + ", ";
+					}
+					break;
+			}
+			return temp;
+		}
+
+		public List<Listener> CompileListeners(int[] indexes)
+		{
+			List<Listener> listeners = new List<Listener>();
+			for(int i = 0; i < indexes.Length; i++) 
+			{
+				listeners.Add(storage.Listeners[indexes[i]]!);
+			}
+			return listeners;
+		}
+
+		public void Write()
+		{
+            Serializer.Save(storage);
+		}
+
+		public void Read()
+		{
+			storage = Serializer.Read();
 		}
 
 	}

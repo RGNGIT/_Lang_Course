@@ -9,7 +9,7 @@ namespace _Lang_Course.CourseEngine.Classes.Courses
 
 		public Listener Listener { get; set; }
 
-		public Individual(Mastering Mastering, Listener Listener): base(Mastering)
+		public Individual(string Name, Mastering Mastering, Listener Listener): base(Mastering, Name)
 		{
 			this.Listener = Listener;
 		}

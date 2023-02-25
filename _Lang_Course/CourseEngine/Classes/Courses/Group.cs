@@ -9,7 +9,7 @@ namespace _Lang_Course.CourseEngine.Classes.Courses
 
 		public List<Listener> Listeners { get; set; }
 
-		public Group(Mastering Mastering, List<Listener> Listeners): base(Mastering)
+		public Group(string Name, Mastering Mastering, List<Listener> Listeners): base(Mastering, Name)
 		{
 			this.Listeners = Listeners;
 		}

@@ -2,6 +2,7 @@
 using _Lang_Course.CourseEngine.Classes.Courses;
 using _Lang_Course.CourseEngine.Classes.Languages;
 using _Lang_Course.CourseEngine.Classes.Masterings;
+using System;
 
 #pragma warning disable CS8602
 
@@ -32,6 +33,43 @@ namespace _Lang_Course
             comboBoxLevel.Items.Add("Продвинутый");
             dataGridViewMasterings.Columns.Add("_lang", "Язык");
             dataGridViewMasterings.Columns.Add("_level", "Уровень");
+            dataGridViewCourse.Columns.Add("_name", "Название");
+            dataGridViewCourse.Columns.Add("_level", "Уровень");
+            dataGridViewCourse.Columns.Add("_students", "Студенты");
+            dataGridViewCourseGroupStud.Columns.Add("FIO", "ФИО");
+        }
+
+        void RefreshCourseGrid()
+        {
+            dataGridViewCourse.Rows.Clear();
+            foreach(Course? course in CourseEngine.storage.Courses)
+            {
+                dataGridViewCourse.Rows.Add(
+                    course.Name, 
+                    $"{CourseEngine.DefineLang(course.Mastering.Language)} - {CourseEngine.DefineMastering(course.Mastering)}",
+                    CourseEngine.StringifyListOfListeners(course)
+                    );
+            }
+        }
+
+        void RefreshStudentsCourseGrid()
+        {
+            dataGridViewCourseGroupStud.Rows.Clear();
+            comboBoxCourseStudent.Items.Clear();
+            foreach(Listener? listener in CourseEngine.storage.Listeners)
+            {
+                dataGridViewCourseGroupStud.Rows.Add(listener.FIO);
+                comboBoxCourseStudent.Items.Add(listener.FIO);
+            }
+        }
+
+        void RefreshMasteringsCombo()
+        {
+            comboBoxCourseLevel.Items.Clear();
+            foreach (var mastering in CourseEngine.storage.Masterings)
+            {
+                comboBoxCourseLevel.Items.Add($"{CourseEngine.DefineLang(mastering.Language)} - {CourseEngine.DefineMastering(mastering)}");
+            }
         }
 
         void RefreshMasteringsGrid()
@@ -171,6 +209,11 @@ namespace _Lang_Course
                     RefreshLangLevelCombo();
                     RefreshMasteringsGrid();
                     break;
+                case 3:
+                    RefreshMasteringsCombo();
+                    RefreshStudentsCourseGrid();
+                    RefreshCourseGrid();
+                    break;
             }
         }
 
@@ -197,9 +240,60 @@ namespace _Lang_Course
             RefreshMasteringsGrid();
         }
 
+        int[] FetchIndexArray(DataGridViewRowCollection collection)
+        {
+            List<int> index = new List<int>();
+            for (int i = 0; i < collection.Count; i++) 
+            {
+                if (collection[i].Selected)
+                {
+                    index.Add(i);
+                }
+            }
+            return index.ToArray();
+        }
+
         private void buttonAddCourse_Click(object sender, EventArgs e)
         {
+            switch(tabControlCourseType.SelectedIndex)
+            {
+                case 0:
+                    CourseEngine.storage.Courses.Add(new Group(
+                        textBoxCourseName.Text,
+                        CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
+                        CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows))
+                        ));
+                    break;
+                case 1:
+                    CourseEngine.storage.Courses.Add(new Individual(
+                        textBoxCourseName.Text,
+                        CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
+                        CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!
+                        ));
+                    break;
+            }
+            RefreshCourseGrid();
+        }
 
+        void RefreshAll()
+        {
+            RefreshCourseGrid();
+            RefreshStudentsCourseGrid();
+            RefreshMasteringsCombo();
+            RefreshMasteringsGrid();
+            RefreshLangLevelCombo();
+            RefreshListenerGrid();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            CourseEngine.Write();
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            CourseEngine.Read();
+            RefreshAll();
         }
     }
 }

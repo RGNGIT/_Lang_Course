@@ -62,15 +62,22 @@
             this.dataGridViewMasterings = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
             this.buttonAddCourse = new System.Windows.Forms.Button();
+            this.tabControlCourseType = new System.Windows.Forms.TabControl();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dataGridViewCourseGroupStud = new System.Windows.Forms.DataGridView();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.comboBoxCourseStudent = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxCourseName = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dataGridViewCourse = new System.Windows.Forms.DataGridView();
+            this.comboBoxCourseLevel = new System.Windows.Forms.ComboBox();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonLoad = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLangs)).BeginInit();
@@ -84,8 +91,12 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMasterings)).BeginInit();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabControl2.SuspendLayout();
+            this.tabControlCourseType.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourseGroupStud)).BeginInit();
+            this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).BeginInit();
+            this.tabPage11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -94,6 +105,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -417,12 +429,12 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.buttonAddCourse);
-            this.tabPage4.Controls.Add(this.tabControl2);
+            this.tabPage4.Controls.Add(this.tabControlCourseType);
             this.tabPage4.Controls.Add(this.label11);
-            this.tabPage4.Controls.Add(this.textBox1);
+            this.tabPage4.Controls.Add(this.textBoxCourseName);
             this.tabPage4.Controls.Add(this.label10);
-            this.tabPage4.Controls.Add(this.dataGridView1);
-            this.tabPage4.Controls.Add(this.comboBox1);
+            this.tabPage4.Controls.Add(this.dataGridViewCourse);
+            this.tabPage4.Controls.Add(this.comboBoxCourseLevel);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -430,79 +442,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Курсы";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(354, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(697, 565);
-            this.dataGridView1.TabIndex = 9;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(10, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(334, 23);
-            this.textBox1.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 15);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Название";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(10, 68);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(334, 23);
-            this.comboBox1.TabIndex = 13;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 50);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(53, 15);
-            this.label11.TabIndex = 12;
-            this.label11.Text = "Уровень";
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage9);
-            this.tabControl2.Controls.Add(this.tabPage10);
-            this.tabControl2.Location = new System.Drawing.Point(10, 97);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(334, 445);
-            this.tabControl2.TabIndex = 14;
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.Location = new System.Drawing.Point(4, 24);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(326, 417);
-            this.tabPage9.TabIndex = 0;
-            this.tabPage9.Text = "Групповой";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // tabPage10
-            // 
-            this.tabPage10.Location = new System.Drawing.Point(4, 24);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(326, 417);
-            this.tabPage10.TabIndex = 1;
-            this.tabPage10.Text = "Индивидуальный";
-            this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // buttonAddCourse
             // 
@@ -513,6 +452,151 @@
             this.buttonAddCourse.Text = "Добавить";
             this.buttonAddCourse.UseVisualStyleBackColor = true;
             this.buttonAddCourse.Click += new System.EventHandler(this.buttonAddCourse_Click);
+            // 
+            // tabControlCourseType
+            // 
+            this.tabControlCourseType.Controls.Add(this.tabPage9);
+            this.tabControlCourseType.Controls.Add(this.tabPage10);
+            this.tabControlCourseType.Location = new System.Drawing.Point(10, 97);
+            this.tabControlCourseType.Name = "tabControlCourseType";
+            this.tabControlCourseType.SelectedIndex = 0;
+            this.tabControlCourseType.Size = new System.Drawing.Size(334, 445);
+            this.tabControlCourseType.TabIndex = 14;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.label12);
+            this.tabPage9.Controls.Add(this.dataGridViewCourseGroupStud);
+            this.tabPage9.Location = new System.Drawing.Point(4, 24);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(326, 417);
+            this.tabPage9.TabIndex = 0;
+            this.tabPage9.Text = "Групповой";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 3);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(158, 15);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Выделить группу студентов";
+            // 
+            // dataGridViewCourseGroupStud
+            // 
+            this.dataGridViewCourseGroupStud.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCourseGroupStud.Location = new System.Drawing.Point(6, 21);
+            this.dataGridViewCourseGroupStud.Name = "dataGridViewCourseGroupStud";
+            this.dataGridViewCourseGroupStud.RowTemplate.Height = 25;
+            this.dataGridViewCourseGroupStud.Size = new System.Drawing.Size(314, 390);
+            this.dataGridViewCourseGroupStud.TabIndex = 0;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.comboBoxCourseStudent);
+            this.tabPage10.Controls.Add(this.label13);
+            this.tabPage10.Location = new System.Drawing.Point(4, 24);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(326, 417);
+            this.tabPage10.TabIndex = 1;
+            this.tabPage10.Text = "Индивидуальный";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxCourseStudent
+            // 
+            this.comboBoxCourseStudent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCourseStudent.FormattingEnabled = true;
+            this.comboBoxCourseStudent.Location = new System.Drawing.Point(6, 21);
+            this.comboBoxCourseStudent.Name = "comboBoxCourseStudent";
+            this.comboBoxCourseStudent.Size = new System.Drawing.Size(314, 23);
+            this.comboBoxCourseStudent.TabIndex = 16;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(50, 15);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Студент";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 50);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 15);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Уровень";
+            // 
+            // textBoxCourseName
+            // 
+            this.textBoxCourseName.Location = new System.Drawing.Point(10, 24);
+            this.textBoxCourseName.Name = "textBoxCourseName";
+            this.textBoxCourseName.Size = new System.Drawing.Size(334, 23);
+            this.textBoxCourseName.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 15);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Название";
+            // 
+            // dataGridViewCourse
+            // 
+            this.dataGridViewCourse.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCourse.Location = new System.Drawing.Point(354, 6);
+            this.dataGridViewCourse.Name = "dataGridViewCourse";
+            this.dataGridViewCourse.RowTemplate.Height = 25;
+            this.dataGridViewCourse.Size = new System.Drawing.Size(697, 565);
+            this.dataGridViewCourse.TabIndex = 9;
+            // 
+            // comboBoxCourseLevel
+            // 
+            this.comboBoxCourseLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCourseLevel.FormattingEnabled = true;
+            this.comboBoxCourseLevel.Location = new System.Drawing.Point(10, 68);
+            this.comboBoxCourseLevel.Name = "comboBoxCourseLevel";
+            this.comboBoxCourseLevel.Size = new System.Drawing.Size(334, 23);
+            this.comboBoxCourseLevel.TabIndex = 13;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.buttonLoad);
+            this.tabPage11.Controls.Add(this.buttonSave);
+            this.tabPage11.Location = new System.Drawing.Point(4, 24);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(1057, 577);
+            this.tabPage11.TabIndex = 4;
+            this.tabPage11.Text = "Сохранение";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(6, 6);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 0;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonLoad
+            // 
+            this.buttonLoad.Location = new System.Drawing.Point(6, 35);
+            this.buttonLoad.Name = "buttonLoad";
+            this.buttonLoad.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoad.TabIndex = 1;
+            this.buttonLoad.Text = "Загрузить";
+            this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // App
             // 
@@ -544,8 +628,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMasterings)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabControl2.ResumeLayout(false);
+            this.tabControlCourseType.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourseGroupStud)).EndInit();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).EndInit();
+            this.tabPage11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -586,14 +676,21 @@
         private Button buttonAddLevel;
         private ComboBox comboBoxLanguage;
         private Label label9;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewCourse;
         private Label label11;
-        private TextBox textBox1;
+        private TextBox textBoxCourseName;
         private Label label10;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxCourseLevel;
         private Button buttonAddCourse;
-        private TabControl tabControl2;
+        private TabControl tabControlCourseType;
         private TabPage tabPage9;
         private TabPage tabPage10;
+        private Label label12;
+        private DataGridView dataGridViewCourseGroupStud;
+        private Label label13;
+        private ComboBox comboBoxCourseStudent;
+        private TabPage tabPage11;
+        private Button buttonLoad;
+        private Button buttonSave;
     }
 }
