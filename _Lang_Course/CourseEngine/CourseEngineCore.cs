@@ -8,7 +8,7 @@ using _Lang_Course.CourseEngine.Classes.Masterings;
 
 namespace _Lang_Course.CourseEngine
 {
-	[Serializable]
+
 	public class Storage 
 	{
 		public List<Course?> Courses { get; set; } = new();
@@ -53,9 +53,9 @@ namespace _Lang_Course.CourseEngine
 				case "Japanese":
 					return $"Японский. Тип иероглифов: {(language as Japanese).GlyphType}";
 				case "German":
-					return $"Японский. Диалект: {(language as German).Dialect}";
+					return $"Немецкий. Диалект: {(language as German).Dialect}";
 				case "French":
-					return $"Японский. Регион: {(language as French).Region}";
+					return $"Французский. Регион: {(language as French).Region}";
 			}
 			return null;
 		}
@@ -104,7 +104,7 @@ namespace _Lang_Course.CourseEngine
 			switch (course.GetType().Name)
 			{
 				case "Individual":
-					temp += (course as Individual).Listener.FIO;
+					temp += (course as Individual).Listener.FIO + " (Индивидуальный)";
 					break;
 				case "Group":
 					foreach (Listener listener in (course as Group).Listeners)
@@ -121,19 +121,37 @@ namespace _Lang_Course.CourseEngine
 			List<Listener> listeners = new List<Listener>();
 			for(int i = 0; i < indexes.Length; i++) 
 			{
-				listeners.Add(storage.Listeners[indexes[i]]!);
+				storage.Listeners[indexes[i]]!.isOld = true;
+                listeners.Add(storage.Listeners[indexes[i]]!);
 			}
 			return listeners;
 		}
 
-		public void Write()
+		public void Write(string? filename)
 		{
-            Serializer.Save(storage);
+			Serializer serializer = new();
+            if(filename != null) 
+			{
+				serializer.Save(storage, filename);
+
+            }
+			else 
+			{
+				serializer.Save(storage);
+            }
 		}
 
-		public void Read()
+		public void Read(ref List<string> logs, string? filename)
 		{
-			storage = Serializer.Read();
+            Serializer serializer = new();
+            if (filename != null)
+            {
+                storage = serializer.Read(ref logs, filename);
+            }
+            else
+            {
+                storage = serializer.Read(ref logs);
+            }
 		}
 
 	}

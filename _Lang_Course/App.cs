@@ -34,9 +34,11 @@ namespace _Lang_Course
             dataGridViewMasterings.Columns.Add("_lang", "Язык");
             dataGridViewMasterings.Columns.Add("_level", "Уровень");
             dataGridViewCourse.Columns.Add("_name", "Название");
+            dataGridViewCourse.Columns.Add("_price", "Стоимость");
             dataGridViewCourse.Columns.Add("_level", "Уровень");
             dataGridViewCourse.Columns.Add("_students", "Студенты");
             dataGridViewCourseGroupStud.Columns.Add("FIO", "ФИО");
+            dataGridViewSaves.Columns.Add("_main", "JSON");
         }
 
         void RefreshCourseGrid()
@@ -46,6 +48,7 @@ namespace _Lang_Course
             {
                 dataGridViewCourse.Rows.Add(
                     course.Name, 
+                    course.Price.ToString(),
                     $"{CourseEngine.DefineLang(course.Mastering.Language)} - {CourseEngine.DefineMastering(course.Mastering)}",
                     CourseEngine.StringifyListOfListeners(course)
                     );
@@ -122,9 +125,8 @@ namespace _Lang_Course
             }
         }
 
-        private void tabControlLangs_SelectedIndexChanged(object sender, EventArgs e)
+        void RefreshLangGrid()
         {
-            FormatLangGrid(tabControlLangs.SelectedIndex);
             switch (tabControlLangs.SelectedIndex)
             {
                 case (int)Languages.English:
@@ -137,7 +139,7 @@ namespace _Lang_Course
                 case (int)Languages.Japanese:
                     foreach (var language in CourseEngine.storage.Languages)
                     {
-                        if(language.GetType() == typeof(Japanese))
+                        if (language.GetType() == typeof(Japanese))
                             dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as Japanese).GlyphType);
                     }
                     break;
@@ -156,6 +158,12 @@ namespace _Lang_Course
                     }
                     break;
             }
+        }
+
+        private void tabControlLangs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormatLangGrid(tabControlLangs.SelectedIndex);
+            RefreshLangGrid();
         }
 
         private void buttonAddLang_Click(object sender, EventArgs e)
@@ -261,14 +269,17 @@ namespace _Lang_Course
                     CourseEngine.storage.Courses.Add(new Group(
                         textBoxCourseName.Text,
                         CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                        CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows))
+                        CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows)),
+                        Convert.ToSingle(textBoxCoursePrice.Text)
                         ));
                     break;
                 case 1:
+                    CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!.isOld = true;
                     CourseEngine.storage.Courses.Add(new Individual(
                         textBoxCourseName.Text,
                         CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                        CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!
+                        CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!,
+                        Convert.ToSingle(textBoxCoursePrice.Text)
                         ));
                     break;
             }
@@ -283,16 +294,38 @@ namespace _Lang_Course
             RefreshMasteringsGrid();
             RefreshLangLevelCombo();
             RefreshListenerGrid();
+            RefreshLangGrid();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            CourseEngine.Write();
+            if(textBoxFilename.Text.Length > 0) 
+            {
+                CourseEngine.Write(textBoxFilename.Text + ".auf");
+            } 
+            else 
+            {
+                CourseEngine.Write(null);
+            }
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            CourseEngine.Read();
+            List<string> logs = new();
+            
+            if (textBoxFilename.Text.Length > 0)
+            {
+                CourseEngine.Read(ref logs, textBoxFilename.Text + ".auf");
+            }
+            else
+            {
+                CourseEngine.Read(ref logs, null);
+            }
+            dataGridViewSaves.Rows.Clear();
+            foreach(string log in logs) 
+            {
+                dataGridViewSaves.Rows.Add(log);
+            }
             RefreshAll();
         }
     }

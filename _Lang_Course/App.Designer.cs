@@ -62,6 +62,8 @@
             this.dataGridViewMasterings = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxCoursePrice = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.buttonAddCourse = new System.Windows.Forms.Button();
             this.tabControlCourseType = new System.Windows.Forms.TabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
@@ -76,8 +78,11 @@
             this.dataGridViewCourse = new System.Windows.Forms.DataGridView();
             this.comboBoxCourseLevel = new System.Windows.Forms.ComboBox();
             this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.textBoxFilename = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.dataGridViewSaves = new System.Windows.Forms.DataGridView();
             this.buttonLoad = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLangs)).BeginInit();
@@ -97,6 +102,7 @@
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).BeginInit();
             this.tabPage11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSaves)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -428,6 +434,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.textBoxCoursePrice);
+            this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.buttonAddCourse);
             this.tabPage4.Controls.Add(this.tabControlCourseType);
             this.tabPage4.Controls.Add(this.label11);
@@ -443,6 +451,22 @@
             this.tabPage4.Text = "Курсы";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // textBoxCoursePrice
+            // 
+            this.textBoxCoursePrice.Location = new System.Drawing.Point(10, 112);
+            this.textBoxCoursePrice.Name = "textBoxCoursePrice";
+            this.textBoxCoursePrice.Size = new System.Drawing.Size(334, 23);
+            this.textBoxCoursePrice.TabIndex = 17;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 94);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(67, 15);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Стоимость";
+            // 
             // buttonAddCourse
             // 
             this.buttonAddCourse.Location = new System.Drawing.Point(6, 548);
@@ -457,10 +481,10 @@
             // 
             this.tabControlCourseType.Controls.Add(this.tabPage9);
             this.tabControlCourseType.Controls.Add(this.tabPage10);
-            this.tabControlCourseType.Location = new System.Drawing.Point(10, 97);
+            this.tabControlCourseType.Location = new System.Drawing.Point(10, 141);
             this.tabControlCourseType.Name = "tabControlCourseType";
             this.tabControlCourseType.SelectedIndex = 0;
-            this.tabControlCourseType.Size = new System.Drawing.Size(334, 445);
+            this.tabControlCourseType.Size = new System.Drawing.Size(334, 401);
             this.tabControlCourseType.TabIndex = 14;
             // 
             // tabPage9
@@ -470,7 +494,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 24);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(326, 417);
+            this.tabPage9.Size = new System.Drawing.Size(326, 373);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "Групповой";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -490,7 +514,7 @@
             this.dataGridViewCourseGroupStud.Location = new System.Drawing.Point(6, 21);
             this.dataGridViewCourseGroupStud.Name = "dataGridViewCourseGroupStud";
             this.dataGridViewCourseGroupStud.RowTemplate.Height = 25;
-            this.dataGridViewCourseGroupStud.Size = new System.Drawing.Size(314, 390);
+            this.dataGridViewCourseGroupStud.Size = new System.Drawing.Size(314, 346);
             this.dataGridViewCourseGroupStud.TabIndex = 0;
             // 
             // tabPage10
@@ -500,7 +524,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 24);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(326, 417);
+            this.tabPage10.Size = new System.Drawing.Size(326, 373);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Индивидуальный";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -568,6 +592,9 @@
             // 
             // tabPage11
             // 
+            this.tabPage11.Controls.Add(this.textBoxFilename);
+            this.tabPage11.Controls.Add(this.label15);
+            this.tabPage11.Controls.Add(this.dataGridViewSaves);
             this.tabPage11.Controls.Add(this.buttonLoad);
             this.tabPage11.Controls.Add(this.buttonSave);
             this.tabPage11.Location = new System.Drawing.Point(4, 24);
@@ -575,28 +602,53 @@
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage11.Size = new System.Drawing.Size(1057, 577);
             this.tabPage11.TabIndex = 4;
-            this.tabPage11.Text = "Сохранение";
+            this.tabPage11.Text = "Менеджер сохранений";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
-            // buttonSave
+            // textBoxFilename
             // 
-            this.buttonSave.Location = new System.Drawing.Point(6, 6);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 0;
-            this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.textBoxFilename.Location = new System.Drawing.Point(6, 490);
+            this.textBoxFilename.Name = "textBoxFilename";
+            this.textBoxFilename.Size = new System.Drawing.Size(342, 23);
+            this.textBoxFilename.TabIndex = 19;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 472);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(274, 15);
+            this.label15.TabIndex = 18;
+            this.label15.Text = "Файлнейм (пустое поле по дефолту \"CourseDB\")";
+            // 
+            // dataGridViewSaves
+            // 
+            this.dataGridViewSaves.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSaves.Location = new System.Drawing.Point(354, 6);
+            this.dataGridViewSaves.Name = "dataGridViewSaves";
+            this.dataGridViewSaves.RowTemplate.Height = 25;
+            this.dataGridViewSaves.Size = new System.Drawing.Size(697, 565);
+            this.dataGridViewSaves.TabIndex = 10;
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(6, 35);
+            this.buttonLoad.Location = new System.Drawing.Point(6, 548);
             this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoad.Size = new System.Drawing.Size(342, 23);
             this.buttonLoad.TabIndex = 1;
             this.buttonLoad.Text = "Загрузить";
             this.buttonLoad.UseVisualStyleBackColor = true;
             this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(6, 519);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(342, 23);
+            this.buttonSave.TabIndex = 0;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // App
             // 
@@ -636,6 +688,8 @@
             this.tabPage10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).EndInit();
             this.tabPage11.ResumeLayout(false);
+            this.tabPage11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSaves)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -692,5 +746,10 @@
         private TabPage tabPage11;
         private Button buttonLoad;
         private Button buttonSave;
+        private DataGridView dataGridViewSaves;
+        private TextBox textBoxCoursePrice;
+        private Label label14;
+        private TextBox textBoxFilename;
+        private Label label15;
     }
 }
