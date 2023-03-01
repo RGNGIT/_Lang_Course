@@ -2,6 +2,7 @@
 using _Lang_Course.CourseEngine.Classes.Courses;
 using _Lang_Course.CourseEngine.Classes.Languages;
 using _Lang_Course.CourseEngine.Classes.Masterings;
+using Accessibility;
 using System;
 
 #pragma warning disable CS8602
@@ -327,6 +328,63 @@ namespace _Lang_Course
                 dataGridViewSaves.Rows.Add(log);
             }
             RefreshAll();
+        }
+
+        private void buttonDeleteListener_Click(object sender, EventArgs e)
+        {
+            void RefreshDeletedListenersInCourses(List<Listener> listeners)
+            {
+                foreach(Course? course in CourseEngine.storage.Courses.ToList())
+                {
+                    switch(course.GetType().Name)
+                    {
+                        case "Group":
+                            foreach(Listener listener in (course as Group).Listeners.ToList()) 
+                            {
+                                if(listeners.Contains(listener)) 
+                                {
+                                    (course as Group).Listeners.Remove(listener);
+                                }
+                            }
+                            if((course as Group).Listeners.Count == 0)
+                            {
+                                CourseEngine.storage.Courses.Remove(course);
+                            }
+                            break;
+                        case "Individual":
+                            if(listeners.Contains((course as Individual).Listener))
+                            {
+                                CourseEngine.storage.Courses.Remove(course);
+                            }
+                            break;
+                    }
+                }
+            }
+            List<Listener> TempListeners = new();
+            int[] indexes = FetchIndexArray(dataGridViewListeners.Rows);
+            if(indexes.Length > 0) 
+            {
+                for(int i = 0; i < indexes.Length; i++)
+                {
+                    TempListeners.Add(CourseEngine.storage.Listeners[indexes[i]]!);
+                    CourseEngine.storage.Listeners.RemoveAt(indexes[i]);
+                }
+            }
+            RefreshListenerGrid();
+            RefreshDeletedListenersInCourses(TempListeners);
+        }
+
+        private void buttonDeleteCourse_Click(object sender, EventArgs e)
+        {
+            int[] indexes = FetchIndexArray(dataGridViewCourse.Rows);
+            if (indexes.Length > 0)
+            {
+                for (int i = 0; i < indexes.Length; i++)
+                {
+                    CourseEngine.storage.Courses.RemoveAt(indexes[i]);
+                }
+            }
+            RefreshCourseGrid();
         }
     }
 }

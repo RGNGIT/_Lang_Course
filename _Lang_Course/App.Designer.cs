@@ -49,11 +49,6 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.textBoxRegion = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonAddListener = new System.Windows.Forms.Button();
-            this.dataGridViewListeners = new System.Windows.Forms.DataGridView();
-            this.textBoxListenerFIO = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonAddLevel = new System.Windows.Forms.Button();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
@@ -61,7 +56,14 @@
             this.comboBoxLevel = new System.Windows.Forms.ComboBox();
             this.dataGridViewMasterings = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonDeleteListener = new System.Windows.Forms.Button();
+            this.buttonAddListener = new System.Windows.Forms.Button();
+            this.dataGridViewListeners = new System.Windows.Forms.DataGridView();
+            this.textBoxListenerFIO = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonDeleteCourse = new System.Windows.Forms.Button();
             this.textBoxCoursePrice = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.buttonAddCourse = new System.Windows.Forms.Button();
@@ -91,10 +93,10 @@
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage8.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListeners)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMasterings)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListeners)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tabControlCourseType.SuspendLayout();
             this.tabPage9.SuspendLayout();
@@ -108,8 +110,8 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
@@ -170,9 +172,9 @@
             // 
             // buttonAddLang
             // 
-            this.buttonAddLang.Location = new System.Drawing.Point(10, 548);
+            this.buttonAddLang.Location = new System.Drawing.Point(6, 548);
             this.buttonAddLang.Name = "buttonAddLang";
-            this.buttonAddLang.Size = new System.Drawing.Size(334, 23);
+            this.buttonAddLang.Size = new System.Drawing.Size(338, 23);
             this.buttonAddLang.TabIndex = 2;
             this.buttonAddLang.Text = "Добавить";
             this.buttonAddLang.UseVisualStyleBackColor = true;
@@ -312,55 +314,6 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Регион";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.buttonAddListener);
-            this.tabPage2.Controls.Add(this.dataGridViewListeners);
-            this.tabPage2.Controls.Add(this.textBoxListenerFIO);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1057, 577);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Слушатели";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddListener
-            // 
-            this.buttonAddListener.Location = new System.Drawing.Point(10, 548);
-            this.buttonAddListener.Name = "buttonAddListener";
-            this.buttonAddListener.Size = new System.Drawing.Size(334, 23);
-            this.buttonAddListener.TabIndex = 8;
-            this.buttonAddListener.Text = "Добавить";
-            this.buttonAddListener.UseVisualStyleBackColor = true;
-            this.buttonAddListener.Click += new System.EventHandler(this.buttonAddListener_Click);
-            // 
-            // dataGridViewListeners
-            // 
-            this.dataGridViewListeners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewListeners.Location = new System.Drawing.Point(354, 6);
-            this.dataGridViewListeners.Name = "dataGridViewListeners";
-            this.dataGridViewListeners.RowTemplate.Height = 25;
-            this.dataGridViewListeners.Size = new System.Drawing.Size(697, 565);
-            this.dataGridViewListeners.TabIndex = 7;
-            // 
-            // textBoxListenerFIO
-            // 
-            this.textBoxListenerFIO.Location = new System.Drawing.Point(14, 23);
-            this.textBoxListenerFIO.Name = "textBoxListenerFIO";
-            this.textBoxListenerFIO.Size = new System.Drawing.Size(334, 23);
-            this.textBoxListenerFIO.TabIndex = 6;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 5);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(34, 15);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "ФИО";
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.buttonAddLevel);
@@ -432,8 +385,70 @@
             this.label8.TabIndex = 6;
             this.label8.Text = "Уровень";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.buttonDeleteListener);
+            this.tabPage2.Controls.Add(this.buttonAddListener);
+            this.tabPage2.Controls.Add(this.dataGridViewListeners);
+            this.tabPage2.Controls.Add(this.textBoxListenerFIO);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1057, 577);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Слушатели";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeleteListener
+            // 
+            this.buttonDeleteListener.ForeColor = System.Drawing.Color.Red;
+            this.buttonDeleteListener.Location = new System.Drawing.Point(6, 548);
+            this.buttonDeleteListener.Name = "buttonDeleteListener";
+            this.buttonDeleteListener.Size = new System.Drawing.Size(334, 23);
+            this.buttonDeleteListener.TabIndex = 9;
+            this.buttonDeleteListener.Text = "Удалить выбранное";
+            this.buttonDeleteListener.UseVisualStyleBackColor = true;
+            this.buttonDeleteListener.Click += new System.EventHandler(this.buttonDeleteListener_Click);
+            // 
+            // buttonAddListener
+            // 
+            this.buttonAddListener.Location = new System.Drawing.Point(6, 519);
+            this.buttonAddListener.Name = "buttonAddListener";
+            this.buttonAddListener.Size = new System.Drawing.Size(334, 23);
+            this.buttonAddListener.TabIndex = 8;
+            this.buttonAddListener.Text = "Добавить";
+            this.buttonAddListener.UseVisualStyleBackColor = true;
+            this.buttonAddListener.Click += new System.EventHandler(this.buttonAddListener_Click);
+            // 
+            // dataGridViewListeners
+            // 
+            this.dataGridViewListeners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewListeners.Location = new System.Drawing.Point(354, 6);
+            this.dataGridViewListeners.Name = "dataGridViewListeners";
+            this.dataGridViewListeners.RowTemplate.Height = 25;
+            this.dataGridViewListeners.Size = new System.Drawing.Size(697, 565);
+            this.dataGridViewListeners.TabIndex = 7;
+            // 
+            // textBoxListenerFIO
+            // 
+            this.textBoxListenerFIO.Location = new System.Drawing.Point(14, 23);
+            this.textBoxListenerFIO.Name = "textBoxListenerFIO";
+            this.textBoxListenerFIO.Size = new System.Drawing.Size(334, 23);
+            this.textBoxListenerFIO.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 5);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(34, 15);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "ФИО";
+            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.buttonDeleteCourse);
             this.tabPage4.Controls.Add(this.textBoxCoursePrice);
             this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.buttonAddCourse);
@@ -450,6 +465,17 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Курсы";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeleteCourse
+            // 
+            this.buttonDeleteCourse.ForeColor = System.Drawing.Color.Red;
+            this.buttonDeleteCourse.Location = new System.Drawing.Point(183, 548);
+            this.buttonDeleteCourse.Name = "buttonDeleteCourse";
+            this.buttonDeleteCourse.Size = new System.Drawing.Size(157, 23);
+            this.buttonDeleteCourse.TabIndex = 18;
+            this.buttonDeleteCourse.Text = "Удалить выбранное";
+            this.buttonDeleteCourse.UseVisualStyleBackColor = true;
+            this.buttonDeleteCourse.Click += new System.EventHandler(this.buttonDeleteCourse_Click);
             // 
             // textBoxCoursePrice
             // 
@@ -471,7 +497,7 @@
             // 
             this.buttonAddCourse.Location = new System.Drawing.Point(6, 548);
             this.buttonAddCourse.Name = "buttonAddCourse";
-            this.buttonAddCourse.Size = new System.Drawing.Size(338, 23);
+            this.buttonAddCourse.Size = new System.Drawing.Size(159, 23);
             this.buttonAddCourse.TabIndex = 15;
             this.buttonAddCourse.Text = "Добавить";
             this.buttonAddCourse.UseVisualStyleBackColor = true;
@@ -672,12 +698,12 @@
             this.tabPage7.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListeners)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMasterings)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListeners)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabControlCourseType.ResumeLayout(false);
@@ -751,5 +777,7 @@
         private Label label14;
         private TextBox textBoxFilename;
         private Label label15;
+        private Button buttonDeleteListener;
+        private Button buttonDeleteCourse;
     }
 }
