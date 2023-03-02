@@ -21,6 +21,8 @@ namespace _Lang_Course
     public partial class App : Form
     {
 
+        string ErrMsg = "Ошибка!";
+
         CourseEngineCore CourseEngine = new(new Storage());
 
         public App()
@@ -169,42 +171,56 @@ namespace _Lang_Course
 
         private void buttonAddLang_Click(object sender, EventArgs e)
         {
-            Language language = null!;
-            TextBox[] reference = new TextBox[] 
+            try
             {
+                Language language = null!;
+                TextBox[] reference = new TextBox[]
+                {
                 textBoxSpeakerType,
                 textBoxGlypthType,
                 textBoxDialect,
                 textBoxRegion,
                 textBoxCharAmount,
                 textBoxPercentOfSpread
-            };
-            switch (tabControlLangs.SelectedIndex)
+                };
+                switch (tabControlLangs.SelectedIndex)
+                {
+                    case (int)Languages.English:
+                        language = CourseEngine.RegisterNewLanguage(new English(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[0].Text));
+                        dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as English).SpeakerType);
+                        break;
+                    case (int)Languages.Japanese:
+                        language = CourseEngine.RegisterNewLanguage(new Japanese(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[1].Text));
+                        dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as Japanese).GlyphType);
+                        break;
+                    case (int)Languages.German:
+                        language = CourseEngine.RegisterNewLanguage(new German(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[2].Text));
+                        dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as German).Dialect);
+                        break;
+                    case (int)Languages.French:
+                        language = CourseEngine.RegisterNewLanguage(new French(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[3].Text));
+                        dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as French).Region);
+                        break;
+                }
+            } 
+            catch(Exception ex)
             {
-                case (int)Languages.English:
-                    language = CourseEngine.RegisterNewLanguage(new English(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[0].Text));
-                    dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as English).SpeakerType);
-                    break;
-                case (int)Languages.Japanese:
-                    language = CourseEngine.RegisterNewLanguage(new Japanese(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[1].Text));
-                    dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as Japanese).GlyphType);
-                    break;
-                case (int)Languages.German:
-                    language = CourseEngine.RegisterNewLanguage(new German(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[2].Text));
-                    dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as German).Dialect);
-                    break;
-                case (int)Languages.French:
-                    language = CourseEngine.RegisterNewLanguage(new French(Convert.ToInt32(reference[4].Text), Convert.ToSingle(reference[5].Text), reference[3].Text));
-                    dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as French).Region);
-                    break;
+                MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
             }
         }
 
         private void buttonAddListener_Click(object sender, EventArgs e)
         {
-            Listener listener = new(textBoxListenerFIO.Text);
-            CourseEngine.storage.Listeners.Add(listener);
-            dataGridViewListeners.Rows.Add(listener.FIO, !listener.isOld ? "Да" : "Нет");
+            try
+            {
+                Listener listener = new(textBoxListenerFIO.Text);
+                CourseEngine.storage.Listeners.Add(listener);
+                dataGridViewListeners.Rows.Add(listener.FIO, !listener.isOld ? "Да" : "Нет");
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
+            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,25 +244,32 @@ namespace _Lang_Course
 
         private void buttonAddLevel_Click(object sender, EventArgs e)
         {
-            dynamic buffer = null!;
-            switch(comboBoxLevel.SelectedItem.ToString())
+            try
             {
-                case "Начальный":
-                    Beginner beginner = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
-                    buffer = beginner;
-                    break;
-                case "Средний":
-                    Middle middle = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
-                    buffer = middle;
-                    break;
-                case "Продвинутый": 
-                    Expert expert = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
-                    buffer = expert;
-                    break;
+                dynamic buffer = null!;
+                switch (comboBoxLevel.SelectedItem.ToString())
+                {
+                    case "Начальный":
+                        Beginner beginner = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
+                        buffer = beginner;
+                        break;
+                    case "Средний":
+                        Middle middle = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
+                        buffer = middle;
+                        break;
+                    case "Продвинутый":
+                        Expert expert = new(CourseEngine.storage.Languages[comboBoxLanguage.SelectedIndex]!);
+                        buffer = expert;
+                        break;
 
+                }
+                CourseEngine.storage.Masterings.Add(buffer);
+                RefreshMasteringsGrid();
             }
-            CourseEngine.storage.Masterings.Add(buffer);
-            RefreshMasteringsGrid();
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
+            }
         }
 
         int[] FetchIndexArray(DataGridViewRowCollection collection)
@@ -264,27 +287,34 @@ namespace _Lang_Course
 
         private void buttonAddCourse_Click(object sender, EventArgs e)
         {
-            switch(tabControlCourseType.SelectedIndex)
+            try
             {
-                case 0:
-                    CourseEngine.storage.Courses.Add(new Group(
-                        textBoxCourseName.Text,
-                        CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                        CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows)),
-                        Convert.ToSingle(textBoxCoursePrice.Text)
-                        ));
-                    break;
-                case 1:
-                    CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!.isOld = true;
-                    CourseEngine.storage.Courses.Add(new Individual(
-                        textBoxCourseName.Text,
-                        CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                        CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!,
-                        Convert.ToSingle(textBoxCoursePrice.Text)
-                        ));
-                    break;
+                switch (tabControlCourseType.SelectedIndex)
+                {
+                    case 0:
+                        CourseEngine.storage.Courses.Add(new Group(
+                            textBoxCourseName.Text,
+                            CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
+                            CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows)),
+                            Convert.ToSingle(textBoxCoursePrice.Text)
+                            ));
+                        break;
+                    case 1:
+                        CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!.isOld = true;
+                        CourseEngine.storage.Courses.Add(new Individual(
+                            textBoxCourseName.Text,
+                            CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
+                            CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!,
+                            Convert.ToSingle(textBoxCoursePrice.Text)
+                            ));
+                        break;
+                }
+                RefreshCourseGrid();
             }
-            RefreshCourseGrid();
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
+            }
         }
 
         void RefreshAll()
@@ -300,91 +330,119 @@ namespace _Lang_Course
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if(textBoxFilename.Text.Length > 0) 
+            try
             {
-                CourseEngine.Write(textBoxFilename.Text + ".auf");
-            } 
-            else 
+                if (textBoxFilename.Text.Length > 0)
+                {
+                    CourseEngine.Write(textBoxFilename.Text + ".auf");
+                }
+                else
+                {
+                    CourseEngine.Write(null);
+                }
+            }
+            catch(Exception ex) 
             {
-                CourseEngine.Write(null);
+                MessageBox.Show(ex.Message, ErrMsg);
             }
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            List<string> logs = new();
-            
-            if (textBoxFilename.Text.Length > 0)
+            try
             {
-                CourseEngine.Read(ref logs, textBoxFilename.Text + ".auf");
+                List<string> logs = new();
+                if (textBoxFilename.Text.Length > 0)
+                {
+                    CourseEngine.Read(ref logs, textBoxFilename.Text + ".auf");
+                }
+                else
+                {
+                    CourseEngine.Read(ref logs, null);
+                }
+                dataGridViewSaves.Rows.Clear();
+                foreach (string log in logs)
+                {
+                    dataGridViewSaves.Rows.Add(log);
+                }
+                RefreshAll();
             }
-            else
+            catch(Exception ex) 
             {
-                CourseEngine.Read(ref logs, null);
+                MessageBox.Show(ex.Message + " Возможно неправильное имя файла!", ErrMsg);
             }
-            dataGridViewSaves.Rows.Clear();
-            foreach(string log in logs) 
-            {
-                dataGridViewSaves.Rows.Add(log);
-            }
-            RefreshAll();
+
         }
 
         private void buttonDeleteListener_Click(object sender, EventArgs e)
         {
-            void RefreshDeletedListenersInCourses(List<Listener> listeners)
+            try 
             {
-                foreach(Course? course in CourseEngine.storage.Courses.ToList())
+                void RefreshDeletedListenersInCourses(List<Listener> listeners)
                 {
-                    switch(course.GetType().Name)
+                    foreach (Course? course in CourseEngine.storage.Courses.ToList())
                     {
-                        case "Group":
-                            foreach(Listener listener in (course as Group).Listeners.ToList()) 
-                            {
-                                if(listeners.Contains(listener)) 
+                        switch (course.GetType().Name)
+                        {
+                            case "Group":
+                                foreach (Listener listener in (course as Group).Listeners.ToList())
                                 {
-                                    (course as Group).Listeners.Remove(listener);
+                                    if (listeners.Contains(listener))
+                                    {
+                                        (course as Group).Listeners.Remove(listener);
+                                    }
                                 }
-                            }
-                            if((course as Group).Listeners.Count == 0)
-                            {
-                                CourseEngine.storage.Courses.Remove(course);
-                            }
-                            break;
-                        case "Individual":
-                            if(listeners.Contains((course as Individual).Listener))
-                            {
-                                CourseEngine.storage.Courses.Remove(course);
-                            }
-                            break;
+                                if ((course as Group).Listeners.Count == 0)
+                                {
+                                    CourseEngine.storage.Courses.Remove(course);
+                                }
+                                break;
+                            case "Individual":
+                                if (listeners.Contains((course as Individual).Listener))
+                                {
+                                    CourseEngine.storage.Courses.Remove(course);
+                                }
+                                break;
+                        }
                     }
                 }
-            }
-            List<Listener> TempListeners = new();
-            int[] indexes = FetchIndexArray(dataGridViewListeners.Rows);
-            if(indexes.Length > 0) 
-            {
-                for(int i = 0; i < indexes.Length; i++)
+                List<Listener> TempListeners = new();
+                int[] indexes = FetchIndexArray(dataGridViewListeners.Rows);
+                if (indexes.Length > 0)
                 {
-                    TempListeners.Add(CourseEngine.storage.Listeners[indexes[i]]!);
-                    CourseEngine.storage.Listeners.RemoveAt(indexes[i]);
+                    for (int i = 0; i < indexes.Length; i++)
+                    {
+                        TempListeners.Add(CourseEngine.storage.Listeners[indexes[i]]!);
+                        CourseEngine.storage.Listeners.RemoveAt(indexes[i]);
+                    }
                 }
+                RefreshListenerGrid();
+                RefreshDeletedListenersInCourses(TempListeners);
+            } 
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Возможно выделено что-то лишнее! (Не надо выделять пустое поле в самом низу)", ErrMsg);
             }
-            RefreshListenerGrid();
-            RefreshDeletedListenersInCourses(TempListeners);
         }
 
         private void buttonDeleteCourse_Click(object sender, EventArgs e)
         {
-            int[] indexes = FetchIndexArray(dataGridViewCourse.Rows);
-            if (indexes.Length > 0)
+            try
             {
-                for (int i = 0; i < indexes.Length; i++)
+                int[] indexes = FetchIndexArray(dataGridViewCourse.Rows);
+                if (indexes.Length > 0)
                 {
-                    CourseEngine.storage.Courses.RemoveAt(indexes[i]);
+                    for (int i = 0; i < indexes.Length; i++)
+                    {
+                        CourseEngine.storage.Courses.RemoveAt(indexes[i]);
+                    }
                 }
+                RefreshCourseGrid();
             }
-            RefreshCourseGrid();
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Возможно выделено что-то лишнее! (Не надо выделять пустое поле в самом низу)", ErrMsg);
+            }
         }
     }
 }

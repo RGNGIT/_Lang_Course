@@ -2,7 +2,7 @@
 
 class Program
 {
-    // Init window form here
+    [STAThread]
     static void Main(string[] args)
     {
         Application.EnableVisualStyles();
