@@ -1,8 +1,8 @@
-﻿using System;
-using System.CodeDom;
-using _Lang_Course.CourseEngine.Classes.Courses;
+﻿using _Lang_Course.CourseEngine.Classes.Courses;
 using _Lang_Course.CourseEngine.Classes.Languages;
 using _Lang_Course.CourseEngine.Classes.Masterings;
+using Microsoft.VisualBasic.Devices;
+using System.Runtime.CompilerServices;
 
 #pragma warning disable CS8602
 
@@ -17,13 +17,186 @@ namespace _Lang_Course.CourseEngine
 		public List<Mastering?> Masterings { get; set; } = new();
 	}
 
+	public class ModelEngine
+	{
+
+		CourseEngineCore courseEngine;
+
+		public ModelEngine(CourseEngineCore courseEngine) 
+		{
+			this.courseEngine = courseEngine;
+		}
+
+        bool Check2WeekComplete()
+        {
+            return day % 14 == 0;
+        }
+
+        public int day { get; set; } = 1;
+		// Это нам нада
+		public List<string> IncrementDay()
+		{
+            List<string> temp = new()
+            {
+                $"День {day}. "
+            };
+            day++;
+            if (!Check2WeekComplete())
+			{
+				temp.Add("Новостей нет, все идет своим чередом, кроме того, что все прокачались!");
+				return temp;
+			}
+			else
+			{
+                RunEvents().ForEach(runResult =>
+                {
+                    temp.Add(runResult);
+                });
+				return temp;
+            }
+		}
+
+		List<string> RunEvents()
+		{
+            List<string> temp = new()
+            {
+                "Прошло очередные две недели."
+            };
+            // Событие повышения студентов
+            List<string> listenerRaise = CheckStudentsToRaise();
+			if(listenerRaise.Count > 0) 
+			{
+				listenerRaise.ForEach(raiseResult =>
+				{
+					temp.Add(raiseResult);
+				});
+			} 
+			else
+			{
+				temp.Add("Никаких студентов не повысили :(");
+			}
+			return temp;
+		}
+
+        Course? FetchHigherCourse(Course current)
+        {
+			Dictionary<string, int> masteringsCompare = new()
+			{
+				{ "Beginner", 0 },
+                { "Niddle", 1 },
+                { "Expert", 2 },
+            };
+			// Попытаться найти публичный курс уровнем выше
+			foreach(Course? course in courseEngine.storage.Courses) 
+			{
+				if
+				(
+				    course.GetType().Name == "Group" &&
+					current.Mastering.Language == course.Mastering.Language && 
+					masteringsCompare[course.Mastering.GetType().Name] == (masteringsCompare[current.Mastering.GetType().Name] + 1)
+				)
+				{
+					return course;
+				}
+			}
+			// Если не нашли ищем индивидуалочек
+			foreach(Course? course in courseEngine.storage.Courses)
+			{
+				if
+				(
+				    course.GetType().Name == "Individual" &&
+					current.Mastering.Language == course.Mastering.Language && 
+					masteringsCompare[course.Mastering.GetType().Name] == (masteringsCompare[current.Mastering.GetType().Name] + 1)
+				)
+				{
+					return course;
+				}
+			}
+			return null;
+        }
+
+		Course? FetchIncluded(Listener listener)
+		{
+			foreach(Course? course in courseEngine.storage.Courses)
+			{
+				switch(course.GetType().Name)
+				{
+					case "Group":
+						foreach(Listener groupListener in ((Group)course).Listeners)
+						{
+							if(listener == groupListener)
+							{
+								return course;
+							}
+						}
+						return null;
+					case "Individual":
+						if(listener == ((Individual)course).Listener)
+						{
+							return course;
+						}
+						return null;
+				}
+			}
+			return null;
+		}
+
+		string? ReassignListener(Listener listener, Course courseFrom, Course courseTo)
+		{
+            switch (courseFrom.GetType().Name)
+			{
+				case "Group":
+                    ((Group)courseFrom).Listeners.Remove(listener);
+                    break;
+                case "Individual":
+                    ((Individual)courseFrom).Listener = null;
+                    break;
+            }
+			switch (courseTo.GetType().Name) 
+			{
+                case "Group":
+                    ((Group)courseTo).Listeners.Add(listener);
+					return "групповой";
+                case "Individual":
+                    ((Individual)courseTo).Listener = listener;
+                    return "индивидуальный";
+            }
+			return null;
+        }
+
+        List<string> CheckStudentsToRaise()
+		{
+			List<string> temp = new List<string>();
+			foreach (Listener? listener in courseEngine.storage.Listeners)
+			{
+				Course? currentCourse = FetchIncluded(listener!);
+				if (currentCourse == null)
+				{
+					temp.Add($"Студент {listener.FIO} не назначен ни на какие курсы. Пропускаем...");
+					continue;
+				}
+				Course? newCourse = FetchHigherCourse(currentCourse);
+				if(newCourse == null)
+				{
+                    temp.Add($"Студент {listener.FIO} не может быть определен ни на курс выше, ни на индивидуальное (отсутствуют). Пропускаем...");
+                    continue;
+                }
+                temp.Add($"Студент {listener.FIO} получил новый ${ReassignListener(listener!, currentCourse, newCourse)} курс классом выше.");
+            }
+			return temp;
+        }
+
+	}
+
 	public class CourseEngineCore
 	{
 		public Storage storage { get; set; }
+		public ModelEngine modelEngine { get; set; }
 
 		public CourseEngineCore(Storage storage)
 		{
 			this.storage = storage;
+			this.modelEngine = new(this);
 		}
 
 		public Listener RegisterNewListener(string FIO)

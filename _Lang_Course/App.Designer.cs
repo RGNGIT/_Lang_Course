@@ -79,12 +79,16 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridViewCourse = new System.Windows.Forms.DataGridView();
             this.comboBoxCourseLevel = new System.Windows.Forms.ComboBox();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.labelCurrentDay = new System.Windows.Forms.Label();
+            this.buttonSwitchDay = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.textBoxFilename = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.dataGridViewSaves = new System.Windows.Forms.DataGridView();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLangs)).BeginInit();
@@ -103,6 +107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourseGroupStud)).BeginInit();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).BeginInit();
+            this.tabPage12.SuspendLayout();
             this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSaves)).BeginInit();
             this.SuspendLayout();
@@ -113,6 +118,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage12);
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -616,6 +622,38 @@
             this.comboBoxCourseLevel.Size = new System.Drawing.Size(334, 23);
             this.comboBoxCourseLevel.TabIndex = 13;
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.listBox1);
+            this.tabPage12.Controls.Add(this.labelCurrentDay);
+            this.tabPage12.Controls.Add(this.buttonSwitchDay);
+            this.tabPage12.Location = new System.Drawing.Point(4, 24);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(1057, 577);
+            this.tabPage12.TabIndex = 5;
+            this.tabPage12.Text = "Моделирование";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // labelCurrentDay
+            // 
+            this.labelCurrentDay.AutoSize = true;
+            this.labelCurrentDay.Location = new System.Drawing.Point(6, 3);
+            this.labelCurrentDay.Name = "labelCurrentDay";
+            this.labelCurrentDay.Size = new System.Drawing.Size(44, 15);
+            this.labelCurrentDay.TabIndex = 2;
+            this.labelCurrentDay.Text = "label16";
+            // 
+            // buttonSwitchDay
+            // 
+            this.buttonSwitchDay.Location = new System.Drawing.Point(6, 548);
+            this.buttonSwitchDay.Name = "buttonSwitchDay";
+            this.buttonSwitchDay.Size = new System.Drawing.Size(1045, 23);
+            this.buttonSwitchDay.TabIndex = 0;
+            this.buttonSwitchDay.Text = "Следующий день";
+            this.buttonSwitchDay.UseVisualStyleBackColor = true;
+            this.buttonSwitchDay.Click += new System.EventHandler(this.buttonSwitchDay_Click);
+            // 
             // tabPage11
             // 
             this.tabPage11.Controls.Add(this.textBoxFilename);
@@ -676,6 +714,15 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(6, 21);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(1045, 514);
+            this.listBox1.TabIndex = 3;
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -713,6 +760,8 @@
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCourse)).EndInit();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSaves)).EndInit();
@@ -779,5 +828,9 @@
         private Label label15;
         private Button buttonDeleteListener;
         private Button buttonDeleteCourse;
+        private TabPage tabPage12;
+        private Label labelCurrentDay;
+        private Button buttonSwitchDay;
+        private ListBox listBox1;
     }
 }

@@ -2,8 +2,6 @@
 using _Lang_Course.CourseEngine.Classes.Courses;
 using _Lang_Course.CourseEngine.Classes.Languages;
 using _Lang_Course.CourseEngine.Classes.Masterings;
-using Accessibility;
-using System;
 
 #pragma warning disable CS8602
 
@@ -42,6 +40,7 @@ namespace _Lang_Course
             dataGridViewCourse.Columns.Add("_students", "Студенты");
             dataGridViewCourseGroupStud.Columns.Add("FIO", "ФИО");
             dataGridViewSaves.Columns.Add("_main", "JSON");
+            labelCurrentDay.Text = "День 1";
         }
 
         void RefreshCourseGrid()
@@ -443,6 +442,15 @@ namespace _Lang_Course
             {
                 MessageBox.Show(ex.Message + " Возможно выделено что-то лишнее! (Не надо выделять пустое поле в самом низу)", ErrMsg);
             }
+        }
+
+        private void buttonSwitchDay_Click(object sender, EventArgs e)
+        {
+            labelCurrentDay.Text = $"День: {CourseEngine.modelEngine.day}";
+            CourseEngine.modelEngine.IncrementDay().ForEach(i => 
+            {
+                listBox1.Items.Add(i.ToString());
+            });
         }
     }
 }

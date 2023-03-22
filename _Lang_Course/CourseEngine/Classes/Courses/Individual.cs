@@ -7,7 +7,7 @@ namespace _Lang_Course.CourseEngine.Classes.Courses
 	public class Individual: Course
 	{
 
-		public Listener Listener { get; set; }
+		public Listener? Listener { get; set; } = null;
 
 		public Individual(string Name, Mastering Mastering, Listener Listener, float Price): base(Mastering, Name, Price)
 		{
