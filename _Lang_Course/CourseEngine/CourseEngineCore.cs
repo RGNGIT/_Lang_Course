@@ -32,15 +32,15 @@ namespace _Lang_Course.CourseEngine
             return day % 14 == 0;
         }
 
-        public int day { get; set; } = 1;
+        int day { get; set; }
 		// Это нам нада
-		public List<string> IncrementDay()
+		public List<string> DailyReport(int day)
 		{
+			this.day = day;
             List<string> temp = new()
             {
                 $"День {day}. "
             };
-            day++;
             if (!Check2WeekComplete())
 			{
 				temp.Add("Новостей нет, все идет своим чередом, кроме того, что все прокачались!");
@@ -73,7 +73,7 @@ namespace _Lang_Course.CourseEngine
 			} 
 			else
 			{
-				temp.Add("Никаких студентов не повысили :(");
+				temp.Add("Никаких студентов не повысили :( Пустой зал слушателей");
 			}
 			return temp;
 		}
@@ -83,7 +83,7 @@ namespace _Lang_Course.CourseEngine
 			Dictionary<string, int> masteringsCompare = new()
 			{
 				{ "Beginner", 0 },
-                { "Niddle", 1 },
+                { "Middle", 1 },
                 { "Expert", 2 },
             };
 			// Попытаться найти публичный курс уровнем выше
@@ -105,6 +105,7 @@ namespace _Lang_Course.CourseEngine
 				if
 				(
 				    course.GetType().Name == "Individual" &&
+					((Individual)course).Listener == null &&
 					current.Mastering.Language == course.Mastering.Language && 
 					masteringsCompare[course.Mastering.GetType().Name] == (masteringsCompare[current.Mastering.GetType().Name] + 1)
 				)
@@ -181,7 +182,7 @@ namespace _Lang_Course.CourseEngine
                     temp.Add($"Студент {listener.FIO} не может быть определен ни на курс выше, ни на индивидуальное (отсутствуют). Пропускаем...");
                     continue;
                 }
-                temp.Add($"Студент {listener.FIO} получил новый ${ReassignListener(listener!, currentCourse, newCourse)} курс классом выше.");
+                temp.Add($"Студент {listener.FIO} получил новый {ReassignListener(listener!, currentCourse, newCourse)} курс классом выше.");
             }
 			return temp;
         }
@@ -191,12 +192,10 @@ namespace _Lang_Course.CourseEngine
 	public class CourseEngineCore
 	{
 		public Storage storage { get; set; }
-		public ModelEngine modelEngine { get; set; }
 
 		public CourseEngineCore(Storage storage)
 		{
 			this.storage = storage;
-			this.modelEngine = new(this);
 		}
 
 		public Listener RegisterNewListener(string FIO)
@@ -277,7 +276,14 @@ namespace _Lang_Course.CourseEngine
 			switch (course.GetType().Name)
 			{
 				case "Individual":
-					temp += (course as Individual).Listener.FIO + " (Индивидуальный)";
+					if((course as Individual).Listener != null)
+					{
+                        temp += (course as Individual).Listener.FIO + " (Индивидуальный)";
+                    }
+					else
+					{
+						temp += "Пусто";
+					}
 					break;
 				case "Group":
 					foreach (Listener listener in (course as Group).Listeners)
@@ -326,6 +332,8 @@ namespace _Lang_Course.CourseEngine
                 storage = serializer.Read(ref logs);
             }
 		}
+
+		public List<string> RunModelEngine(int day) => new ModelEngine(this).DailyReport(day);
 
 	}
 }

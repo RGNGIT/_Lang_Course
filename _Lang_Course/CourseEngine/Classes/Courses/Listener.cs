@@ -5,6 +5,7 @@ namespace _Lang_Course.CourseEngine.Classes.Courses
 	public class Listener
 	{
 
+
 		public string FIO { get; set; }
 		public bool isOld { get; set; } = false;
 

@@ -10,10 +10,10 @@ namespace _Lang_Course
 
     public enum Languages
     {
-        English  = 0,
+        English = 0,
         Japanese = 1,
-        German   = 2,
-        French   = 3
+        German = 2,
+        French = 3
     }
 
     public partial class App : Form
@@ -46,10 +46,10 @@ namespace _Lang_Course
         void RefreshCourseGrid()
         {
             dataGridViewCourse.Rows.Clear();
-            foreach(Course? course in CourseEngine.storage.Courses)
+            foreach (Course? course in CourseEngine.storage.Courses)
             {
                 dataGridViewCourse.Rows.Add(
-                    course.Name, 
+                    course.Name,
                     course.Price.ToString(),
                     $"{CourseEngine.DefineLang(course.Mastering.Language)} - {CourseEngine.DefineMastering(course.Mastering)}",
                     CourseEngine.StringifyListOfListeners(course)
@@ -61,7 +61,7 @@ namespace _Lang_Course
         {
             dataGridViewCourseGroupStud.Rows.Clear();
             comboBoxCourseStudent.Items.Clear();
-            foreach(Listener? listener in CourseEngine.storage.Listeners)
+            foreach (Listener? listener in CourseEngine.storage.Listeners)
             {
                 dataGridViewCourseGroupStud.Rows.Add(listener.FIO);
                 comboBoxCourseStudent.Items.Add(listener.FIO);
@@ -80,7 +80,7 @@ namespace _Lang_Course
         void RefreshMasteringsGrid()
         {
             dataGridViewMasterings.Rows.Clear();
-            foreach(var mastering in CourseEngine.storage.Masterings) 
+            foreach (var mastering in CourseEngine.storage.Masterings)
             {
                 dataGridViewMasterings.Rows.Add(CourseEngine.DefineLang(mastering.Language), CourseEngine.DefineMastering(mastering));
             }
@@ -98,7 +98,7 @@ namespace _Lang_Course
         void RefreshListenerGrid()
         {
             dataGridViewListeners.Rows.Clear();
-            foreach(Listener? listener in CourseEngine.storage.Listeners)
+            foreach (Listener? listener in CourseEngine.storage.Listeners)
             {
                 dataGridViewListeners.Rows.Add(listener.FIO, !listener.isOld ? "Да" : "Нет");
             }
@@ -110,7 +110,7 @@ namespace _Lang_Course
             dataGridViewLangs.Columns.Clear();
             dataGridViewLangs.Columns.Add("_charAmount", "Кол-во символов");
             dataGridViewLangs.Columns.Add("_spreadPercent", "Процент мирового распространения");
-            switch (Lang) 
+            switch (Lang)
             {
                 case (int)Languages.English:
                     dataGridViewLangs.Columns.Add("_speakerType", "Тип носителя");
@@ -201,8 +201,8 @@ namespace _Lang_Course
                         dataGridViewLangs.Rows.Add(language.CharAmount, language.PercentOfSpread, (language as French).Region);
                         break;
                 }
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
             }
@@ -216,7 +216,7 @@ namespace _Lang_Course
                 CourseEngine.storage.Listeners.Add(listener);
                 dataGridViewListeners.Rows.Add(listener.FIO, !listener.isOld ? "Да" : "Нет");
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
             }
@@ -224,7 +224,7 @@ namespace _Lang_Course
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(tabControl1.SelectedIndex) 
+            switch (tabControl1.SelectedIndex)
             {
                 case 1:
                     RefreshListenerGrid();
@@ -265,7 +265,7 @@ namespace _Lang_Course
                 CourseEngine.storage.Masterings.Add(buffer);
                 RefreshMasteringsGrid();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
             }
@@ -274,7 +274,7 @@ namespace _Lang_Course
         int[] FetchIndexArray(DataGridViewRowCollection collection)
         {
             List<int> index = new List<int>();
-            for (int i = 0; i < collection.Count; i++) 
+            for (int i = 0; i < collection.Count; i++)
             {
                 if (collection[i].Selected)
                 {
@@ -294,7 +294,7 @@ namespace _Lang_Course
                         CourseEngine.storage.Courses.Add(new Group(
                             textBoxCourseName.Text,
                             CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                            CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows)),
+                            !checkBoxEmptyCourse.Checked ? CourseEngine.CompileListeners(FetchIndexArray(dataGridViewCourseGroupStud.Rows)) : new List<Listener>(),
                             Convert.ToSingle(textBoxCoursePrice.Text)
                             ));
                         break;
@@ -303,14 +303,14 @@ namespace _Lang_Course
                         CourseEngine.storage.Courses.Add(new Individual(
                             textBoxCourseName.Text,
                             CourseEngine.storage.Masterings[comboBoxCourseLevel.SelectedIndex]!,
-                            CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]!,
+                            !checkBoxEmptyCourse.Checked ? CourseEngine.storage.Listeners[comboBoxCourseStudent.SelectedIndex]! : null!,
                             Convert.ToSingle(textBoxCoursePrice.Text)
                             ));
                         break;
                 }
                 RefreshCourseGrid();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно что-то не ввел или ввел не в нужном формате!", ErrMsg);
             }
@@ -340,7 +340,7 @@ namespace _Lang_Course
                     CourseEngine.Write(null);
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ErrMsg);
             }
@@ -366,7 +366,7 @@ namespace _Lang_Course
                 }
                 RefreshAll();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно неправильное имя файла!", ErrMsg);
             }
@@ -375,7 +375,7 @@ namespace _Lang_Course
 
         private void buttonDeleteListener_Click(object sender, EventArgs e)
         {
-            try 
+            try
             {
                 void RefreshDeletedListenersInCourses(List<Listener> listeners)
                 {
@@ -417,8 +417,8 @@ namespace _Lang_Course
                 }
                 RefreshListenerGrid();
                 RefreshDeletedListenersInCourses(TempListeners);
-            } 
-            catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно выделено что-то лишнее! (Не надо выделять пустое поле в самом низу)", ErrMsg);
             }
@@ -438,16 +438,19 @@ namespace _Lang_Course
                 }
                 RefreshCourseGrid();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Возможно выделено что-то лишнее! (Не надо выделять пустое поле в самом низу)", ErrMsg);
             }
         }
 
+        int day = 1;
+
         private void buttonSwitchDay_Click(object sender, EventArgs e)
         {
-            labelCurrentDay.Text = $"День: {CourseEngine.modelEngine.day}";
-            CourseEngine.modelEngine.IncrementDay().ForEach(i => 
+            day++;
+            labelCurrentDay.Text = $"День: {day}";
+            CourseEngine.RunModelEngine(day).ForEach(i =>
             {
                 listBox1.Items.Add(i.ToString());
             });
