@@ -16,6 +16,7 @@ namespace _Lang_Course.CourseEngine
         [Serializable]
         public class Container
         {
+            public int IterationId;
             // Слушатели
             public List<Listener> listeners = new();
             // Курсы
@@ -37,6 +38,7 @@ namespace _Lang_Course.CourseEngine
         Storage StorageCompiler(Container container)
         {
             Storage storage = new();
+            storage.IterationId = container.IterationId;
             storage.Listeners = container.listeners!;
             foreach (Group group in container.groupCourses)
             {

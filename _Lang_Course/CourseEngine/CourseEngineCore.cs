@@ -11,6 +11,7 @@ namespace _Lang_Course.CourseEngine
 
 	public class Storage 
 	{
+		public int IterationId { get; set; }
 		public List<Course?> Courses { get; set; } = new();
 		public List<Listener?> Listeners { get; set; } = new();
 		public List<Language?> Languages { get; set; } = new();
@@ -125,14 +126,14 @@ namespace _Lang_Course.CourseEngine
 					case "Group":
 						foreach(Listener groupListener in ((Group)course).Listeners)
 						{
-							if(listener == groupListener)
+							if(listener.Id == groupListener.Id)
 							{
 								return course;
 							}
 						}
 						return null;
 					case "Individual":
-						if(listener == ((Individual)course).Listener)
+						if(listener.Id == ((Individual)course).Listener.Id)
 						{
 							return course;
 						}
@@ -197,14 +198,14 @@ namespace _Lang_Course.CourseEngine
 		{
 			this.storage = storage;
 		}
-
+		/*
 		public Listener RegisterNewListener(string FIO)
 		{
 			Listener listener = new(FIO);
 			storage.Listeners.Add(listener);
 			return listener;
 		}
-
+		*/
 		public string? DefineMastering(Mastering mastering)
 		{
 			switch (mastering.GetType().Name)

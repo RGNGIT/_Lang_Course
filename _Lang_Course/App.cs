@@ -208,13 +208,16 @@ namespace _Lang_Course
             }
         }
 
+        int IterationId = 0;
+
         private void buttonAddListener_Click(object sender, EventArgs e)
         {
             try
             {
-                Listener listener = new(textBoxListenerFIO.Text);
+                Listener listener = new(IterationId, textBoxListenerFIO.Text);
                 CourseEngine.storage.Listeners.Add(listener);
                 dataGridViewListeners.Rows.Add(listener.FIO, !listener.isOld ? "Да" : "Нет");
+                IterationId++;
             }
             catch (Exception ex)
             {
@@ -227,11 +230,11 @@ namespace _Lang_Course
             switch (tabControl1.SelectedIndex)
             {
                 case 1:
-                    RefreshListenerGrid();
-                    break;
-                case 2:
                     RefreshLangLevelCombo();
                     RefreshMasteringsGrid();
+                    break;
+                case 2:
+                    RefreshListenerGrid();
                     break;
                 case 3:
                     RefreshMasteringsCombo();
@@ -364,6 +367,7 @@ namespace _Lang_Course
                 {
                     dataGridViewSaves.Rows.Add(log);
                 }
+                IterationId = CourseEngine.storage.IterationId;
                 RefreshAll();
             }
             catch (Exception ex)
@@ -397,7 +401,7 @@ namespace _Lang_Course
                                 }
                                 break;
                             case "Individual":
-                                if (listeners.Contains((course as Individual).Listener))
+                                if ((course as Individual).Listener != null && listeners.Contains((course as Individual).Listener!))
                                 {
                                     CourseEngine.storage.Courses.Remove(course);
                                 }
